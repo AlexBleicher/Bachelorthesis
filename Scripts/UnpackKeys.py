@@ -1,5 +1,5 @@
-import gnupg
 import sys
+import gnupg
 from datetime import datetime
 
 key_id_to_algorithm = {
@@ -29,7 +29,6 @@ key_id_to_algorithm = {
 def parse_pgp_key(key_data):
     # Initialize the GnuPG instance
     gpg = gnupg.GPG()
-
     # Import the key into GnuPG
     import_result = gpg.import_keys_file(key_data)
 
