@@ -1,0 +1,45 @@
+Agenda Bachelortreffen:
+
+AG Internationalisierung bin ich dieses Semester
+
+Wie gehe ich am besten vor (also was soll mir diese Arbeit vermitteln)? Zeitplan so ok? Quellenarbeit (wie recherchiere ich am besten/ist das gut wie ich das bisher gemacht habe/weitere Quellen)?
+
+- Vorgehen kommt drauf an, wie man am liebsten Arbeitet. Am Anfang erstmal Recherche und Anforderungen klären.
+- Schreiben nicht zu weit hinten legen
+- Notizen auf jeden Fall immer machen
+- Bei Entscheidungen beim Praktischen Teil Begründung mitschreiben
+- Auch verwandte Themen anschauen
+Geschlossenes Bild soll entstehen
+
+Zum Testen:
+	- Gleich drüber nachdenken, wie ich da Keys herbekomme (Key Server, etc.)
+
+Bei der Präsentation sollte schon was praktisches da sein
+
+Gerne Unterkapitel vorab schicken
+
+Wissenschaftliche Quellen zu PGP gibt es nicht viele, ist nicht schlimm. Zu Exploits dann mehr. Auch auf Konferenzen und Workshops schauen (RealWorldCrypto,EuroCrypt,etc.)
+
+Genauer Umfang der Arbeit: MUST Haves? SHOULD Haves?
+MUST Haves:
+- Kryptographische Parameter feststellen und Ausgeben nach Keyeingabe
+- Auf spezifische Exploits prüfen
+- Commandlinetool reicht
+- Strukturierter Output (Weiterverarbeitbares Outputformat)
+
+SHOULD Haves:
+- Variabel einstellen, was die Kryptographischen Standards sein sollen
+- Leicht auf weitere Standards  (andere Protokolle) und andere Schwachstellen erweiterbar
+
+COULD Have:
+- Verschlüsselte Dateien durchgehen und prüfen
+
+Bei Schwierigkeiten:
+- Man kann dann auf Konfiguration des Tools umschwenken
+
+Anmeldung Arbeit: Was ist jetzt der genaue Titel? Anmeldedatum rückdatiert zum 16.09.2024.
+Titelvorschlag: Suche nach Kryptographischen Schwachstellen am Beispiel von PGP (genauen Standard hier gleich festschreiben) (Mail an Herr Löhr mit Varianten schreiben)
+Vortrag am nächsten Kryptotag ist möglich
+OS danach wäre cool. Da aber auf Lizenz von benutztem Code achten.
+Formalien: Wie zitiere ich? Kann ich Riedhammers Vorlage verwenden? Umfang? Wünsche? Umgang mit KI?
+Nächstes Treffen (Machen wir online aus)
