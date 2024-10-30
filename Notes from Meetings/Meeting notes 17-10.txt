@@ -1,0 +1,48 @@
+Finaler Arbeitstitel:
+   "A tool to check for weaknesses in real-world usage of OpenPGP"
+   "Automatisation of checking OpenPGP installations for weaknesses"
+   "Automating the security analysis of ..."
+   "Automated scanning of real-world OpenPGP instances for
+    cryptographic weaknesses"
+
+   "Design and developmemt of a tool to check for cryptographic
+    weaknesses in real-world application scenarios of OpenPGP"
+      (vielleicht etwas sehr lang und sperrig, würde das Vorhaben
+       aber eigentlich gar nicht so schlecht beschreiben. Evtl.
+       kann man in etwa das gleiche noch etwas kürzer und besser
+       ausdrücken?)
+
+
+"Automating checks for cryptographic weaknesses in real-world application Scenarios of OpenPGP"
+16.09.2024
+Abgabe: 16.02.2025
+
+Statusupdate:
+- Eingelesen in verschiedene Schwachstellen von Kryptographischen Verfahren
+- Skript zum Entpacken von GPG Keys implementiert
+
+Plan nächste 2 Wochen:
+- Festlegen, welche Schwachstellen ich prüfe und die genauer lesen
+- Weitere Skripte implementieren (auf genaue Key daten kommen, etc.)
+
+Aufgekommene Fragen:
+   - Veralteter Standard in GnuPG implementiert
+	- Robert Koch (federführend bei GnuPG) hat anscheinend Streit mit OpenPGP Standards
+	- Neuer Standard ist evtl. auch noch nicht implementiert
+	- Vorheriger Standard wäre deshalb Augenmerk
+	- Neuen Standard trotzdem in die Arbeit mit einbinden
+	- LibrePGP oder so ist GnuPG Standard da mal nachforschen
+	- Warnings bei neuem Standard wäre gut (Man könnte hier verschiedene Klassen von Warnings einführen, z.B. "Standardabweichung")
+
+   - Vertrauenswürdigkeit von Quellen prüfen (bspw.https://wstein.org/edu/2010/414/projects/novotney.pdf)
+	- Genauer nach besagter Quelle Googlen/suchen und so evtl. was finden
+	- Wenn es um nachprüfbare Sachen geht, kann man es evtl. doch verwenden (gilt auch bei anderen Quellen wie Blogs)
+
+Nächstes Treffen:
+- Genauer über Schwachstellen reden
+- Nächstes Treffen 30.10. 15:30 per Teams
+
+Vortrag:
+- Wenn möglich was zeigen
+
+ChatGPT darf verwendet werden, Angeben, wofür ich es verwendet habe.
