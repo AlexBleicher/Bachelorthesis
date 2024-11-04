@@ -3,7 +3,7 @@ from pgpy import PGPKey
 def parse_pgp_key(file_path):
     try:
         # Load the PGP key from file
-        with open(file_path, 'r') as f:
+        with open(file_path, 'rb') as f:
             key_data = f.read()
 
         # Parse the PGP key using PGPy
@@ -11,7 +11,7 @@ def parse_pgp_key(file_path):
 
         # Print basic key details
         print("=== PGP Key Details ===")
-        print(f"Key ID: {pgp_key.key_id}")
+        #print(f"Key ID: {pgp_key.key_id}")
         print(f"Fingerprint: {pgp_key.fingerprint}")
         print(f"Key Type: {pgp_key.key_algorithm.name}")
         print(f"Creation Date: {pgp_key.created}")
