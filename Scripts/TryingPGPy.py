@@ -18,10 +18,11 @@ def parse_pgp_key(file_path):
             print(f"Is Public Key: {pgp_key.is_public}")
             # Print algorithm-specific details
             if pgp_key.key_algorithm.name == "RSAEncryptOrSign":
+                print("Key too small: ", pgp_key.key_size < 3000)
                 print("Modulus (n):", pgp_key._key.keymaterial.n)
                 print("Public Exponent (e):", pgp_key._key.keymaterial.e)
                 if not pgp_key.is_public:
-                    debug = pgp_key._key.keymaterial
+                    print("d too small: ", pgp_key._key.keymaterial.d < pgp_key._key.keymaterial.n/4)
                     print("Private Exponent (d):", pgp_key._key.keymaterial.d)
 
             elif pgp_key.key_algorithm.name == "DSA":
