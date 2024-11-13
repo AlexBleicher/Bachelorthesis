@@ -1,0 +1,14 @@
+- Andere Tools auf jeden Fall auch mal anschauen
+- Bachelorvortrag:
+    - Abgrenzung zu was nicht mehr in der Arbeit ist könnte auch mit aufgenommen werden
+    - Einen Angriff zu zeigen wäre gut
+    - RSA erst erklären, bei Wieners Angriff
+    - Evtl. kurz reinbringen, was es sonst noch so ähnliches (also Tools)
+
+ - Gliederung:
+  - Nur Algorithmen erklären, die auch tatsächlich gebraucht werden
+  - Veraltete Algorithmen auch ein Punkt der Schwachstelle sein könnte
+  - Packet Format sollte erklärt werden (evtl. mit Schaubild)
+  - Further Research kann noch mit einem Kapitel (Discussion oder Conclusion) gemerget werden
+
+- Quantenalgorithmen in Future Work würde sich anbieten (Draft existiert gerade)
