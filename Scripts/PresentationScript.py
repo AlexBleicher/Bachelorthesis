@@ -55,7 +55,8 @@ def parse_privateKey(file_path, format, password):
 
         with key.unlock(password):
             print(f"Key Type: {key.key_algorithm.name}")
-
+            if key.key_algorithm.name == "RSAEncryptOrSign":
+                checkRSAPrivateKey(key)
     except Exception as e:
         print(f"Error parsing PGP key: {e}")
 
@@ -66,7 +67,26 @@ def parse_publicKey(file_path, format):
         key, _ = PGPKey.from_blob(key_data.decode("utf-8"))
     else:
         key, _ = PGPKey.from_blob(key_data)
-    print(f"Key Type: {key.key_algorithm.name}")
+    checkRSAPublicKey(key)
+
+def checkRSAPrivateKey(key):
+    checkForRSASize(key)
+
+def checkRSAPublicKey(key):
+    checkForRSASize(key)
+
+def checkForRSASize(key):
+    size = key.key_size
+    if size < 2048:
+        print("RSA key is to be considered unsecure according to the NIST recommendations for key lengths and should not be used")
+    elif size < 3072:
+        print("RSA key can be considered secure for usage up to 2030 according to the NIST recommendations for key lengths")
+    else:
+        print("RSA key can be considered secure for usage according to the NIST and BSI reccomendations")
+    if size < 2800:
+        print("RSA key is to be considered unsecure according to the BSI recommendations for key lengths and should not be used")
+    else:
+        print("RSA key can be considered secure for usage according to the BSI recommendations for key lengths")
 
 if __name__ == "__main__":
     # Ensure a file path is provided as an argument
