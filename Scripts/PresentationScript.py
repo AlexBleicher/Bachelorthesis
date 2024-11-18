@@ -71,6 +71,7 @@ def parse_publicKey(file_path, format):
 
 def checkRSAPrivateKey(key):
     checkForRSASize(key)
+    checkWienersBoundRSAKey(key)
 
 def checkRSAPublicKey(key):
     checkForRSASize(key)
@@ -87,6 +88,12 @@ def checkForRSASize(key):
         print("RSA key is to be considered unsecure according to the BSI recommendations for key lengths and should not be used")
     else:
         print("RSA key can be considered secure for usage according to the BSI recommendations for key lengths")
+
+def checkWienersBoundRSAKey(key):
+    d = key._key.keymaterial.d
+    n = key._key.keymaterial.n
+    e = key._key.keymaterial.e
+    print(len(bin(n))/2 > len(bin(d))) #Need to verify that this could work. Also if the bound is correct
 
 if __name__ == "__main__":
     # Ensure a file path is provided as an argument
