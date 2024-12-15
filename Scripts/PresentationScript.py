@@ -1,3 +1,5 @@
+import math
+
 from pgpy import PGPKey
 import warnings
 warnings.filterwarnings("ignore") #Just to make it look pretty
@@ -92,8 +94,15 @@ def checkForRSASize(key):
 def checkWienersBoundRSAKey(key):
     d = key._key.keymaterial.d
     n = key._key.keymaterial.n
-    e = key._key.keymaterial.e
-    print(len(bin(n))/2 > len(bin(d))) #Need to verify that this could work. Also if the bound is correct
+
+    if len(bin(n))/2 > len(bin(d)): #Need to verify that this could work. Also if the bound is correct
+        print("Private exponent smaller then suggested boundary for Wieners attack. Key could be insecure against Wieners attacks.")
+    else:
+        print("Private exponent bigger then suggested boundary for Wieners attack. Wieners attack can not be utilized against this key.")
+
+    sqrtN = math.sqrt(n)
+    nSqrt = pow(n, 1/2)
+    print(d<1/3*math.sqrt(math.sqrt(n)))
 
 if __name__ == "__main__":
     # Ensure a file path is provided as an argument
