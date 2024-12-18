@@ -1,0 +1,5 @@
+Following parameters could be set by Users:
+- OpenPGP Standard to check
+- Weaknesses to check
+- Effective Key Length to check (How long should the key with this length be considered secure)
+- Severity of Weaknesses

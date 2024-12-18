@@ -1,0 +1,13 @@
+General Key Information:
+- Protocol: String
+- Secret Key: Boolean
+- Expiration Date: Date
+
+Found Weaknesses:
+{
+- Name of Weakness: String
+- Description: String
+- Countermeasure: String
+- Severity: String
+},
+{...}
