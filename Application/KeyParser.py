@@ -1,7 +1,7 @@
 from pgpy import PGPKey
 from prompt_toolkit import prompt
 
-def parse_Key(file_path):
+def parse_Key(file_path, output):
     """
     Parses a PGP key file to determine its type and format.
     Args:
@@ -42,6 +42,17 @@ def parse_Key(file_path):
             print("Please enter the passphrase to unlock the given key")
             key_info["passphrase"] = input()
 
+        if key.expires_at is None:
+            expirationDate = "Never"
+        else:
+            expirationDate = key["expires_at"]
+
+        output.write("Analysis result for the given keyfile: " + file_path + "\n\n")
+        output.write("General Information:\n")
+        output.write("------------------\n")
+        output.write("- Protocol: " + key.key_algorithm.name + "\n")
+        output.write("- Secret Key: " + str(key_info["is_private"]) + "\n")
+        output.write("- Expiration Date: " + expirationDate + "\n\n") #Todo: Check if key is expired?
         return key_info
 
     except Exception as e:

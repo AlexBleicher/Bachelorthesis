@@ -1,5 +1,6 @@
 import cmd
 import json
+import os
 from KeyParser import *
 from KeyLengthAnalyzer import *
 class MyApp(cmd.Cmd):
@@ -8,10 +9,19 @@ class MyApp(cmd.Cmd):
     keyfile = ""
     settings = json.load(open('settings.json'))
     def do_analyze(self, arg):
-        print("Analyzing the given Keyfile. This could take some time please stand by.")
-        self.keyfile = arg
-        key_info = parse_Key(self.keyfile)
-        analyzeKeyLengths(key_info["key"])
+        try:
+            if arg == "":
+                print("Please enter a Keyfile to analyze.")
+                arg = input()
+            print("Analyzing the given Keyfile. This could take some time please stand by.")
+            if os.path.exists("output.txt"):
+                os.remove("output.txt")
+            output = open("output.txt", "x")
+            self.keyfile = arg
+            key_info = parse_Key(self.keyfile, output)
+            analyzeKeyLengths(key_info["key"], output)
+        except Exception as e:
+            print("Exception occured: " + str(e))
     def do_settings(self, arg):
         print(self.settings)
     def do_quit(self, arg):

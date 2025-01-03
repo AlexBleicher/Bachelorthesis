@@ -1,43 +1,78 @@
+from GeneralInformation import *
+
 keyLifetimesNIST = {
-    "Insecure": 111,
-    "Secure up to 2030": 112,
-    "Secure Beyond 2030": 113
+    0: "Insecure",
+    112: "Secure up to 2030",
+    128: "Secure beyond 2030"
 }
 
 keyLifetimesBSI = {
-    "Insecure": 119,
-    "Secure up to 2030": 120
+    0: "Insecure",
+    120: "Secure up to 2030"
 }
 
 effectiveKeyLengthsBSIClassical = {
-    120: 2800,
-    128: 3000
+    2800: 120,
+    3000: 128
 }
 
 effectiveKeyLengthsNISTClassical = {
-    80: 1024,
-    112: 2048,
-    128: 3072,
-    192: 7680,
-    256: 15360
+    1024: 80,
+    2048: 112,
+    3072: 128,
+    7680: 192,
+    15360: 256
 }
 
 effectiveKeyLengthsBSIECC = {
-    120: 240,
-    128: 250
+    240: 120,
+    250: 128
 }
 
 effectiveKeyLengthsNISTECC = {
-    80: 160,
-    112: 224,
-    128: 256,
-    192: 384,
-    256: 512
+    160: 80,
+    224: 112,
+    256: 128,
+    384: 192,
+    512: 256
 }
 
-def analyzeKeyLengths(key):
+def analyzeKeyLengths(key, output):
     keysize = key.key_size
-    algorithm = key.key_algorithm.name
+    algorithm = key.key_algorithm
+    effectiveKeyLengthBSI = 0
+    effectiveKeyLengthNIST = 0
+
+    if algorithm in RSAAlgorithmIDs or algorithm in ElGamalAlgorithmIDs:
+        effectiveKeyLengthBSI = setEffectiveKeyLength(keysize, effectiveKeyLengthsBSIClassical)
+        effectiveKeyLengthNIST = setEffectiveKeyLength(keysize, effectiveKeyLengthsNISTClassical)
+    elif algorithm in EllipticCurveAlgorithmIDs:
+        effectiveKeyLengthBSI = setEffectiveKeyLength(keysize, effectiveKeyLengthsBSIECC)
+        effectiveKeyLengthNIST = setEffectiveKeyLength(keysize, effectiveKeyLengthsNISTECC)
+    else:
+        print("Unknown algorithm") #TODO: Make this better
+
+    bsiSecurityLevel = ""
+    nistSecurityLevel = ""
+    for key in keyLifetimesBSI.keys():
+        if key <= effectiveKeyLengthBSI:
+            bsiSecurityLevel = keyLifetimesBSI.get(key)
+    for key in keyLifetimesNIST.keys():
+        if key <= effectiveKeyLengthNIST:
+            nistSecurityLevel = keyLifetimesNIST.get(key)
+
+    output.write("Key Length Information:\n")
+    output.write("------------------\n")
+    output.write("BSI Security Level: " + bsiSecurityLevel + "\n")
+    output.write("NIST Security Level: " + nistSecurityLevel + "\n")
 
 
 
+
+def setEffectiveKeyLength(keysize, applyingDict):
+    currentEffectiveKeyLength = 0
+    for value in applyingDict.keys():
+        if value <= keysize:
+            currentEffectiveKeyLength = applyingDict.get(value)
+        else:
+            return currentEffectiveKeyLength

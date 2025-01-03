@@ -8,6 +8,5 @@ Found Weaknesses:
 - Name of Weakness: String
 - Description: String
 - Countermeasure: String
-- Severity: String
 },
 {...}
