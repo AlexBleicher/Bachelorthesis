@@ -1,5 +1,5 @@
 from pgpy import PGPKey
-
+from prompt_toolkit import prompt
 
 def parse_Key(file_path):
     """
@@ -13,7 +13,8 @@ def parse_Key(file_path):
         "is_public": None,
         "is_private": None,
         "format": None,
-        "key": None
+        "key": None,
+        "passphrase": None
     }
     try:
         # Read the key file
@@ -38,6 +39,8 @@ def parse_Key(file_path):
         else:
             key_info["is_public"] = False
             key_info["is_private"] = True
+            print("Please enter the passphrase to unlock the given key")
+            key_info["passphrase"] = input()
 
         return key_info
 
