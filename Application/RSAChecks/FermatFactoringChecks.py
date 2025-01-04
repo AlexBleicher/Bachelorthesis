@@ -1,5 +1,7 @@
 import math
+import gmpy2
 
+#TODO: Test with valid Fermat Keys. Also Make Settings changeable
 
 def fermatFactoringCheckPrivateKey(key, output, passphrase, settings):
     with key.unlock(passphrase):
@@ -21,4 +23,24 @@ def fermatFactoringCheckPrivateKey(key, output, passphrase, settings):
 
 
 def fermatFactoringCheckPublicKey(key, output):
-    return False
+    n = key._key.keymaterial.n
+    tries = 100
+    a = gmpy2.isqrt(n)
+    c = 0
+    while not gmpy2.is_square(a ** 2 - n):
+        a += 1
+        c += 1
+        if c > tries:
+            return False
+    bsq = a ** 2 - n
+    b = gmpy2.isqrt(bsq)
+    p = a + b
+    q = a - b
+    if(p*q==n):
+        output.write("{\n")
+        output.write("Name of Weakness: Fermat Factoring Algorithm\n")
+        output.write(
+            "Description: The RSA Modulus can be factored efficiently with Fermat's Factoring Algorithm because p and q are too close together\n")
+        output.write(
+            "Countermeasure: Use a new RSA key pair that has been generated with a correct implementation of RSA\n")
+        output.write("}\n")
