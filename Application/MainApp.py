@@ -3,6 +3,7 @@ import json
 import os
 from KeyParser import *
 from KeyLengthAnalyzer import *
+from Application.RSAChecks.RSAAnalyzer import *
 class MyApp(cmd.Cmd):
     prompt = '>>'
     intro = "Welcome to my Key Analyzer"
@@ -20,8 +21,8 @@ class MyApp(cmd.Cmd):
             output = open("output.txt", "x")
             self.keyfile = arg
             key_info = parse_Key(self.keyfile, output)
-            analyzeKeyLengths(key_info["key"], output)
-
+            analyzeKeyLengths(key_info["key"], output, self.settings)
+            analyzeRSAWeaknesses(key_info, output, self.settings)
             print("Analysis complete. The result can be found under " + os.path.abspath("output.txt"))
         except Exception as e:
             print("Exception occured: " + str(e))

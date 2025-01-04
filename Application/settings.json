@@ -1,1 +1,1 @@
-{"RFCVersion": 4880, "UserSpecifiedKeyLength": "1024"}
+{"RFCVersion": 4880, "UserSpecifiedKeyLength": "2048", "FermatFactoringCheckIncluded":  true, "FermatFactoringEffectiveLengthToCheck": 120}

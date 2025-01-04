@@ -1,5 +1,4 @@
 from GeneralInformation import *
-import json
 
 keyLifetimesNIST = {
     0: "Insecure",
@@ -39,7 +38,7 @@ effectiveKeyLengthsNISTECC = {
 }
 
 
-def analyzeKeyLengths(key, output):
+def analyzeKeyLengths(key, output, settings):
     keysize = key.key_size
     algorithm = key.key_algorithm
     effectiveKeyLengthBSI = 0
@@ -69,7 +68,6 @@ def analyzeKeyLengths(key, output):
     output.write("BSI Security Level: " + bsiSecurityLevel + "\n")
     output.write("NIST Security Level: " + nistSecurityLevel + "\n")
 
-    settings = json.load(open("settings.json"))
     userSpecifiedKeyLength = int(settings["UserSpecifiedKeyLength"])
     if userSpecifiedKeyLength >= 0:
         satisfies = keysize >= userSpecifiedKeyLength
