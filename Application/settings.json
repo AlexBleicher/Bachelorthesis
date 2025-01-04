@@ -1,4 +1,1 @@
-{
-  "RFCVersion": 4880,
-  "KeyLifetime": 2030
-}
+{"RFCVersion": 4880, "UserSpecifiedKeyLength": "1024"}

@@ -1,12 +1,19 @@
 General Key Information:
-- Protocol: String
-- Secret Key: Boolean
-- Expiration Date: Date
+------------------
+Protocol: String
+Secret Key: Boolean
+Expiration Date: Date
+
+Key Length Information:
+------------------
+BSI Security Level: String
+NIST Security Level: String
+Meets User Key length Specification: Boolean //Optional only if User Specification is given
 
 Found Weaknesses:
 {
-- Name of Weakness: String
-- Description: String
-- Countermeasure: String
+Name of Weakness: String
+Description: String
+Countermeasure: String
 },
 {...}
