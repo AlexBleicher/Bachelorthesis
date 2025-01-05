@@ -1,6 +1,6 @@
 from Application.RSAChecks.FermatFactoringChecks import *
-from Application.RSAChecks.LowPrivateExponentChecks import *
-
+from Application.RSAChecks.LowPrivateExponentRSAChecks import *
+from Application.RSAChecks.LowPublicExponentRSACheck import *
 def analyzeRSAWeaknesses(key_info, output, settings):
     isPrivate = key_info[('is_private')]
     key = key_info['key']
@@ -23,14 +23,15 @@ def analyzeRSAWeaknesses(key_info, output, settings):
             "Countermeasure: Using a different algorithm.\n")
         output.write("}\n")
 
+    if settings["LowPublicExponentCheckIncluded"]:
+        checkLowPublicExponent(key, output, settings)
+
     if isPrivate:
         passphrase = key_info["passphrase"]
         if settings["FermatFactoringCheckIncluded"]:
             fermatFactoringCheckPrivateKey(key, output, passphrase, settings)
         if settings["LowPrivateExponentCheckIncluded"]:
             checkForLowPrivateExponent(key, output, passphrase, settings)
-
-
     else:
         if settings["FermatFactoringCheckIncluded"]:
             fermatFactoringCheckPublicKey(key, output)

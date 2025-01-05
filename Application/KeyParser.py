@@ -45,14 +45,14 @@ def parse_Key(file_path, output):
         if key.expires_at is None:
             expirationDate = "Never"
         else:
-            expirationDate = key["expires_at"]
+            expirationDate = key.expires_at
 
         output.write("Analysis result for the given keyfile: " + file_path + "\n\n")
         output.write("General Information:\n")
         output.write("------------------\n")
         output.write("Protocol: " + key.key_algorithm.name + "\n")
         output.write("Secret Key: " + str(key_info["is_private"]) + "\n")
-        output.write("Expiration Date: " + expirationDate + "\n\n") #Todo: Check if key is expired?
+        output.write("Expiration Date: " + str(expirationDate) + "\n\n") #Todo: Check if key is expired?
         return key_info
 
     except Exception as e:

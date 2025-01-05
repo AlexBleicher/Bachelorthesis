@@ -1,5 +1,4 @@
 import json
-
 from Application.GeneralInformation import *
 
 
@@ -40,6 +39,10 @@ def calledSettings(arg):
                     print("A given RSA secret Key should be checked against attacks using small private exponents like Wieners attack.\nAllowed Values: Booleans\n")
                 elif settingToChange == "LowPrivateExponentBound":
                     print("The possible Bounds to check the private exponent against.\nAllowed Values: " + str(possibleSettingsBoundsLowPrivateExponentRSA) + "\n")
+                elif settingToChange == "LowPublicExponentCheckIncluded":
+                    print("A given RSA Key should be checked if the public exponent is low. This would enable some attacks like calculating back to the original message from sending multiple ciphers with the same message to different recipients and using the chinese remainder theorem on them.\nAllowed Values: Booleans\n")
+                elif settingToChange == "LowPublicExponentBound":
+                    print("The minimum value a RSA public Exponent should have.\nAllowed Values: Numbers greater than 3")
 
                 try:
                     print("Please enter the value you want to change the setting to.\n")
@@ -55,7 +58,11 @@ def calledSettings(arg):
                         userInput = int(userInput)
                         if userInput <= 0:
                             raise Exception
-                    elif settingToChange == "FermatFactoringCheckIncluded" or settingToChange == "LowPrivateExponentCheckIncluded":
+                    elif settingToChange == "LowPublicExponentBound":
+                        userInput = int(userInput)
+                        if userInput<=3:
+                            raise Exception
+                    elif settingToChange == "FermatFactoringCheckIncluded" or settingToChange == "LowPrivateExponentCheckIncluded" or settingToChange == "LowPublicExponentCheckIncluded":
                         if userInput.lower() == "false":
                             userInput = False
                         elif userInput.lower() == "true":
