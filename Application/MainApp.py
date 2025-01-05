@@ -3,7 +3,8 @@ import json
 import os
 from KeyParser import *
 from KeyLengthAnalyzer import *
-from Application.RSAChecks.RSAAnalyzer import *
+from RSAChecks.RSAAnalyzer import *
+from Settings.AlterSettings import *
 class MyApp(cmd.Cmd):
     prompt = '>>'
     intro = "Welcome to my Key Analyzer"
@@ -29,35 +30,8 @@ class MyApp(cmd.Cmd):
         finally:
             output.close()
     def do_settings(self, arg):
-        exit = False #TODO: Make this better. Give User some values to choose from.
-        while not exit:
-            print("Current Settings: " + str(self.settings))
-            print("To Alter Settings input 'alter'. If you want to exit the settings, "
-                  "input 'exit' \n")
-            userInput = input()
-            if userInput == "exit":
-                exit = True
-            elif userInput == "alter":
-                print("Please enter the name of the setting you want to change. \n")
-                userInput = input()
-                if userInput == "exit":
-                    exit=True
-                elif userInput not in self.settings:
-                    print("Unknown setting " + userInput)
-                else:
-                    print("Please enter the value you wish to change the setting to.\n")
-                    settingName = userInput
-                    setting = self.settings[settingName]
-                    userInput = input()
-                    try:
-                        type(setting)(userInput)
-                        self.settings[settingName] = userInput
-                        json.dump(self.settings, open("settings.json", "w"))
-                    except Exception as e:
-                        print("Uncompatible Types.\n")
-
-            else:
-                print("Unknown command. To Alter Settings input 'alter'. If you want to exit the settings, input 'exit' \n")
+        calledSettings(input)
+        self.settings = json.load(open('settings.json'))
 
     def do_quit(self, arg):
         """Exit the CLI."""

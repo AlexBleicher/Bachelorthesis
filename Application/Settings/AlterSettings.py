@@ -1,0 +1,65 @@
+import json
+from Application.GeneralInformation import *
+
+
+def calledSettings(arg):
+    exit = False
+    settings = json.load(open('settings.json', 'r'))
+    userInput = arg
+    while not exit:
+        print("Current Settings: " + str(settings))
+        print("To Alter Settings input 'alter'. If you want to exit the settings, "
+              "input 'exit' \n")
+        if userInput is None or type(userInput) is not str:
+            print("Please enter a command")
+            userInput = input()
+        if userInput == 'exit':
+            exit = True
+        elif userInput == 'alter':
+            print("Please enter the name of the setting you want to change. \n")
+            userInput = input()
+            if userInput == "exit":
+                exit = True
+            elif userInput not in settings:
+                print("Unknown setting " + userInput)
+            else:
+                settingToChange = userInput
+                if settingToChange == "RFCVersion":
+                    print("The RFC version the keys should be checked against.\nAllowed Values: " + str(
+                        possibleSettingsValuesRFC))
+                elif settingToChange == "UserSpecifiedKeyLength":
+                    print("A minimum Key length the given key should have.\nAllowed Values: Numbers greater than 0")
+                elif settingToChange == "FermatFactoringCheckIncluded":
+                    print(
+                        "A given RSA Key should be checked against possible Fermat Factorization.\nAllowed Values: Booleans")
+                elif settingToChange == "FermatFactoringEffectiveLengthToCheck":
+                    print(
+                        "A effective Key Length that should be the minimum distance between the two primes p and q of an RSA key in order to disable Fermat Factoring Attacks. This check is only applicable for secret keys.\n Allowed Values: Numbers greater than 0")
+                try:
+                    print("Please enter the value you want to change the setting to.\n")
+                    userInput = input()
+
+                    if userInput == "exit":
+                        exit = True
+                    elif settingToChange == "RFCVersion" and userInput not in possibleSettingsValuesRFC:
+                        raise Exception
+                    elif settingToChange == "UserSpecifiedKeyLength" or settingToChange == "FermatFactoringEffectiveLengthToCheck":
+                        userInput = int(userInput)
+                        if userInput <= 0:
+                            raise Exception
+                    elif settingToChange == "FermatFactoringCheckIncluded":
+                        if userInput.lower() == "false":
+                            userInput = False
+                        elif userInput.lower() == "true":
+                            userInput = True
+                        else:
+                            raise Exception
+                    settings[settingToChange] = userInput
+                    json.dump(settings, open("settings.json", "w"))
+                    print("Settings changed")
+                except Exception:
+                    print("Entered Value not applicable to given setting: " + str(userInput))
+
+        else:
+            print("Unknown command " + userInput)
+        userInput = None
