@@ -5,6 +5,9 @@ from KeyParser import *
 from KeyLengthAnalyzer import *
 from RSAChecks.RSAAnalyzer import *
 from Settings.AlterSettings import *
+
+import warnings
+warnings.filterwarnings("ignore")
 class MyApp(cmd.Cmd):
     prompt = '>>'
     intro = "Welcome to my Key Analyzer"
