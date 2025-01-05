@@ -1,4 +1,5 @@
 from Application.RSAChecks.FermatFactoringChecks import *
+from Application.RSAChecks.LowPrivateExponentChecks import *
 
 def analyzeRSAWeaknesses(key_info, output, settings):
     isPrivate = key_info[('is_private')]
@@ -26,6 +27,9 @@ def analyzeRSAWeaknesses(key_info, output, settings):
         passphrase = key_info["passphrase"]
         if settings["FermatFactoringCheckIncluded"]:
             fermatFactoringCheckPrivateKey(key, output, passphrase, settings)
+        if settings["LowPrivateExponentCheckIncluded"]:
+            checkForLowPrivateExponent(key, output, passphrase, settings)
+
 
     else:
         if settings["FermatFactoringCheckIncluded"]:

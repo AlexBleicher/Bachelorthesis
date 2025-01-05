@@ -1,4 +1,5 @@
 import json
+
 from Application.GeneralInformation import *
 
 
@@ -26,15 +27,20 @@ def calledSettings(arg):
                 settingToChange = userInput
                 if settingToChange == "RFCVersion":
                     print("The RFC version the keys should be checked against.\nAllowed Values: " + str(
-                        possibleSettingsValuesRFC))
+                        possibleSettingsValuesRFC) +"\n")
                 elif settingToChange == "UserSpecifiedKeyLength":
-                    print("A minimum Key length the given key should have.\nAllowed Values: Numbers greater than 0")
+                    print("A minimum Key length the given key should have.\nAllowed Values: Numbers greater than 0\n")
                 elif settingToChange == "FermatFactoringCheckIncluded":
                     print(
-                        "A given RSA Key should be checked against possible Fermat Factorization.\nAllowed Values: Booleans")
+                        "A given RSA Key should be checked against possible Fermat Factorization.\nAllowed Values: Booleans\n")
                 elif settingToChange == "FermatFactoringEffectiveLengthToCheck":
                     print(
-                        "A effective Key Length that should be the minimum distance between the two primes p and q of an RSA key in order to disable Fermat Factoring Attacks. This check is only applicable for secret keys.\n Allowed Values: Numbers greater than 0")
+                        "A effective Key Length that should be the minimum distance between the two primes p and q of an RSA key in order to disable Fermat Factoring Attacks. This check is only applicable for secret keys.\n Allowed Values: Numbers greater than 0\n")
+                elif settingToChange == "LowPrivateExponentCheckIncluded":
+                    print("A given RSA secret Key should be checked against attacks using small private exponents like Wieners attack.\nAllowed Values: Booleans\n")
+                elif settingToChange == "LowPrivateExponentBound":
+                    print("The possible Bounds to check the private exponent against.\nAllowed Values: " + str(possibleSettingsBoundsLowPrivateExponentRSA) + "\n")
+
                 try:
                     print("Please enter the value you want to change the setting to.\n")
                     userInput = input()
@@ -43,11 +49,13 @@ def calledSettings(arg):
                         exit = True
                     elif settingToChange == "RFCVersion" and userInput not in possibleSettingsValuesRFC:
                         raise Exception
+                    elif settingToChange == "LowPrivateExponentBound" and userInput not in possibleSettingsBoundsLowPrivateExponentRSA:
+                        raise Exception
                     elif settingToChange == "UserSpecifiedKeyLength" or settingToChange == "FermatFactoringEffectiveLengthToCheck":
                         userInput = int(userInput)
                         if userInput <= 0:
                             raise Exception
-                    elif settingToChange == "FermatFactoringCheckIncluded":
+                    elif settingToChange == "FermatFactoringCheckIncluded" or settingToChange == "LowPrivateExponentCheckIncluded":
                         if userInput.lower() == "false":
                             userInput = False
                         elif userInput.lower() == "true":

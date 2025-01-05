@@ -5,3 +5,4 @@ EllipticCurveAlgorithmIDs = [18,19,22,25,26,27,28]
 
 #Settings
 possibleSettingsValuesRFC = ["RFC4880", "RFC9580"]
+possibleSettingsBoundsLowPrivateExponentRSA=["Estimated Bound", "Boneh and Durfee Bound"]

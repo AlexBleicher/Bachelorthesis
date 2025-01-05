@@ -1,7 +1,7 @@
 import math
 import gmpy2
 
-#TODO: Test with valid Fermat Keys. Also Make Settings changeable
+#TODO: Test with valid Fermat Keys.
 
 def fermatFactoringCheckPrivateKey(key, output, passphrase, settings):
     with key.unlock(passphrase):

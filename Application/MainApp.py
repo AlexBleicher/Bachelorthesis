@@ -3,8 +3,8 @@ import json
 import os
 from KeyParser import *
 from KeyLengthAnalyzer import *
-from RSAChecks.RSAAnalyzer import *
-from Settings.AlterSettings import *
+from Application.RSAChecks.RSAAnalyzer import *
+from Application.Settings.AlterSettings import *
 
 import warnings
 warnings.filterwarnings("ignore")
