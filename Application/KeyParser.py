@@ -47,12 +47,12 @@ def parse_Key(file_path, output):
         else:
             expirationDate = key.expires_at
 
-        output.write("Analysis result for the given keyfile: " + file_path + "\n\n")
-        output.write("General Information:\n")
-        output.write("------------------\n")
-        output.write("Protocol: " + key.key_algorithm.name + "\n")
-        output.write("Secret Key: " + str(key_info["is_private"]) + "\n")
-        output.write("Expiration Date: " + str(expirationDate) + "\n\n") #Todo: Check if key is expired?
+        output["Keyfile"] = file_path
+        genInfo = {}
+        genInfo["Protocol"] = key.key_algorithm.name
+        genInfo["Secret Key"] = key_info["is_private"]
+        genInfo["Expiration Date"] = str(expirationDate)
+        output["General Key Information"] = genInfo
         return key_info
 
     except Exception as e:

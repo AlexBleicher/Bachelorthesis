@@ -62,17 +62,17 @@ def analyzeKeyLengths(key, output, settings):
         if key <= effectiveKeyLengthNIST:
             nistSecurityLevel = keyLifetimesNIST.get(key)
 
-    output.write("Key Length Information:\n")
-    output.write("------------------\n")
-    output.write("Key length: " + str(keysize) + "\n")
-    output.write("BSI Security Level: " + bsiSecurityLevel + "\n")
-    output.write("NIST Security Level: " + nistSecurityLevel + "\n")
-
     userSpecifiedKeyLength = int(settings["UserSpecifiedKeyLength"])
+    satisfies = "No User Key Length specified"
     if userSpecifiedKeyLength >= 0:
-        satisfies = keysize >= userSpecifiedKeyLength
-        output.write("Meets User Key length Specification: " + str(satisfies) + "\n")
-    output.write("\n")
+        satisfies = str(keysize >= userSpecifiedKeyLength)
+
+    lengthInfo = {}
+    lengthInfo["Key Length"] = keysize
+    lengthInfo["BSI Security Level"] = bsiSecurityLevel
+    lengthInfo["NIST Security Level"] = nistSecurityLevel
+    lengthInfo["Meets User Key Length Specification"] = satisfies
+    output["Key Length Information"] = lengthInfo
 
 
 
