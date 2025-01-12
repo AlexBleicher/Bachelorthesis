@@ -1,4 +1,4 @@
-from GeneralInformation import *
+from Application.Util.GeneralInformation import *
 
 keyLifetimesNIST = {
     0: "Insecure",

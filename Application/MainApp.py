@@ -1,11 +1,10 @@
 import cmd
-import json
 import os
 from KeyParser import *
-from KeyLengthAnalyzer import *
+from Application.GeneralChecks.KeyLengthAnalyzer import *
 from Application.RSAChecks.RSAAnalyzer import *
 from Application.Settings.AlterSettings import *
-
+from Application.GeneralChecks.DeprecatedKeyVersionCheck import *
 import warnings
 warnings.filterwarnings("ignore")
 class MyApp(cmd.Cmd):
@@ -23,6 +22,7 @@ class MyApp(cmd.Cmd):
             self.keyfile = arg
             key_info = parse_Key(self.keyfile, output)
             analyzeKeyLengths(key_info["key"], output, self.settings)
+            checkKeyVersion(key_info["key"], output, self.settings)
             analyzeRSAWeaknesses(key_info, output, self.settings)
             print("Analysis complete. The result can be found under " + os.path.abspath("output.json"))
         except Exception as e:

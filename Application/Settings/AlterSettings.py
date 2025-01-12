@@ -1,5 +1,5 @@
 import json
-from Application.GeneralInformation import *
+from Application.Util.GeneralInformation import *
 
 
 def calledSettings(arg):
