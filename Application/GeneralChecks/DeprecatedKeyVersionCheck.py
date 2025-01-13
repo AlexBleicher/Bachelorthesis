@@ -1,3 +1,9 @@
 def checkKeyVersion(key, output, settings):
     version = key._key.header.version
-    print(version) #Version 2 and 3 are deprecated since 1998. Version 4 deprecated since RFC 9580
+    versionInfo = {}
+    versionInfo["Key Version"] = version
+    if settings["RFCVersion"] == "RFC4880" and version<4 or settings["RFCVersion"] == "RFC9580" and version<6:
+        versionInfo["Deprecated"] = True
+    else:
+        versionInfo["Deprecated"] = False
+    output["Key Version Information"] = versionInfo

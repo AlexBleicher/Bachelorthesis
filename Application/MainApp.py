@@ -6,12 +6,16 @@ from Application.RSAChecks.RSAAnalyzer import *
 from Application.Settings.AlterSettings import *
 from Application.GeneralChecks.DeprecatedKeyVersionCheck import *
 import warnings
+
 warnings.filterwarnings("ignore")
+
+
 class MyApp(cmd.Cmd):
     prompt = '>>'
     intro = "Welcome to my Key Analyzer"
     keyfile = ""
     settings = json.load(open('settings.json'))
+
     def do_analyze(self, arg):
         output = {}
         try:
@@ -31,6 +35,7 @@ class MyApp(cmd.Cmd):
             if os.path.exists("output.json"):
                 os.remove("output.json")
             json.dump(output, open('output.json', 'w'), indent=4)
+
     def do_settings(self, arg):
         calledSettings(input)
         self.settings = json.load(open('settings.json'))
@@ -39,6 +44,7 @@ class MyApp(cmd.Cmd):
         """Exit the CLI."""
         print("Goodbye")
         return True
+
 
 if __name__ == '__main__':
     MyApp().cmdloop()
