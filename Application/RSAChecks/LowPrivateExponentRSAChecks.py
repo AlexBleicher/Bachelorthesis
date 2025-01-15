@@ -10,7 +10,10 @@ def checkForLowPrivateExponent(key, foundWeaknesses, passphrase, settings):
             bound = math.sqrt(n)
         elif boundToCheck == "Boneh and Durfee Bound":
             bound = math.pow(n, 0.292)
-            boundApplicable = key._key.keymaterial.e < math.pow(n, 1.875)
+            nToAdd = n ** 0.875
+            e = key._key.keymaterial.e
+            upperEBound = e / n
+            boundApplicable = upperEBound < nToAdd
 
         if boundApplicable and d < bound:
             foundWeaknesses.append("Low private Exponent",
