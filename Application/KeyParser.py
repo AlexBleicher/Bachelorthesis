@@ -14,7 +14,8 @@ def parse_Key(file_path, output):
         "is_private": None,
         "format": None,
         "key": None,
-        "passphrase": None
+        "passphrase": None,
+        "algorithm": None
     }
     try:
         # Read the key file
@@ -32,6 +33,7 @@ def parse_Key(file_path, output):
             key_info["format"] = "Binary"
             key_info["key"] = key
 
+        key_info["algorithm"] = key.key_algorithm.name
         # Determine if the key is public or private
         if key.is_public:
             key_info["is_public"] = True
