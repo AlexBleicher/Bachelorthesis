@@ -19,6 +19,9 @@ class MyApp(cmd.Cmd):
     def analyzeKeyFromFile(self, keyfile):
         output = {}
         key_info = parse_Key(keyfile, output)
+        if key_info is None:
+            print("Error parsing key from file: " + keyfile)
+            return None
         analyzeKeyLengths(key_info["key"], output, self.settings)
         checkKeyVersion(key_info["key"], output, self.settings)
         if "RSA" in key_info["algorithm"]:
@@ -34,15 +37,17 @@ class MyApp(cmd.Cmd):
             print("Analyzing the given Keyfile. This could take some time please stand by.")
             keyfile = arg
             output = self.analyzeKeyFromFile(keyfile)
-            print("Analysis complete. The result can be found under " + os.path.abspath("output.json"))
+            if output is not None:
+                if os.path.exists("output.json"):
+                    os.remove("output.json")
+                json.dump(output, open('output.json', 'w'), indent=4)
+                print("Analysis complete. The result can be found under " + os.path.abspath("output.json"))
+            else:
+                print("Analysis failed")
         except Exception as e:
             print("Exception occured: " + str(e))
-        finally:
-            if os.path.exists("output.json"):
-                os.remove("output.json")
-            json.dump(output, open('output.json', 'w'), indent=4)
 
-    def do_analyze_dir(self, arg):
+    def do_analyzedir(self, arg):
         output = []
         try:
             if arg == "":
@@ -50,14 +55,19 @@ class MyApp(cmd.Cmd):
                 arg = input()
             print("Analyzing all Keyfiles in the given directory. This could take some time please stand by.")
             for keyfile in os.listdir(arg):
-                output.append(self.analyzeKeyFromFile(keyfile))
-            print("Analysis complete. The result can be found under " + os.path.abspath("output.json"))
+                filepath = os.path.join(arg, keyfile)
+                outputForKey = self.analyzeKeyFromFile(filepath)
+                if outputForKey is not None:
+                    output.append(outputForKey)
+            if len(output)>0:
+                if(os.path.exists("output.json")):
+                    os.remove("output.json")
+                json.dump(output, open('output.json', 'w'), indent=4)
+                print("Analysis complete. The result can be found under " + os.path.abspath("output.json"))
+            else:
+                print("Analysis failed. No parseable key was found.")
         except Exception as e:
             print("Exception occured: " + str(e))
-        finally:
-            if(os.path.exists("output.json")):
-                os.remove("output.json")
-            json.dump(output, open('open.json', 'w'), indent=4)
     def do_settings(self, arg):
         calledSettings(input)
         self.settings = json.load(open('settings.json'))
