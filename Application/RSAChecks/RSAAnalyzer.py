@@ -20,8 +20,8 @@ def analyzeRSAWeaknesses(key_info, keyfile, output, settings):
     if settings["LowPublicExponentCheckIncluded"]:
         checkLowPublicExponent(key, foundWeaknesses, settings)
 
-    if settings["ROCACheckIncluded"] and key_info["unparsedData"] is not None:
-        checkKeyForROCA(key_info["unparsedData"], keyfile, foundWeaknesses)
+    if settings["ROCACheckIncluded"] and key_info["asciiArmoredData"] is not None:
+        checkKeyForROCA(key_info["asciiArmoredData"], keyfile, foundWeaknesses)
 
     if isPrivate:
         passphrase = key_info["passphrase"]

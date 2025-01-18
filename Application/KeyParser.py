@@ -16,13 +16,13 @@ def parse_Key(file_path, output):
         "key": None,
         "passphrase": None,
         "algorithm": None,
-        "unparsedData": None
+        "asciiArmoredData": None
     }
     try:
         # Read the key file
         with open(file_path, "rb") as f:
             key_data = f.read()
-            key_info["unparsedData"] = key_data
+            key_info["asciiArmoredData"] = key_data
 
         # Try to parse it as ASCII-armored
         try:
@@ -34,6 +34,7 @@ def parse_Key(file_path, output):
             key, _ = PGPKey.from_blob(key_data)
             key_info["format"] = "Binary"
             key_info["key"] = key
+            key_info["asciiArmoredData"] = str(key) #In order to allow ROCA checks
 
         key_info["algorithm"] = key.key_algorithm.name
         # Determine if the key is public or private
