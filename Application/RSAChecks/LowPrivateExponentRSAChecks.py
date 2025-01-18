@@ -1,4 +1,5 @@
 import math
+import gmpy2
 from Application.Util.CreateWeaknessJSON import *
 def checkForLowPrivateExponent(key, foundWeaknesses, passphrase, settings):
     with key.unlock(passphrase):
@@ -9,11 +10,10 @@ def checkForLowPrivateExponent(key, foundWeaknesses, passphrase, settings):
         if boundToCheck == "Estimated Bound":
             bound = math.sqrt(n)
         elif boundToCheck == "Boneh and Durfee Bound":
-            bound = math.pow(n, 0.292)
-            nToAdd = n ** 0.875
+            bound = pow(gmpy2.mpz(n), 0.292)
+            upperEBound = pow(gmpy2.mpz(n), 1.875)
             e = key._key.keymaterial.e
-            upperEBound = e / n
-            boundApplicable = upperEBound < nToAdd
+            boundApplicable = e > upperEBound
 
         if boundApplicable and d < bound:
             foundWeaknesses.append("Low private Exponent",

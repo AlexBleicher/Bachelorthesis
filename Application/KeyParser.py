@@ -44,6 +44,8 @@ def parse_Key(file_path, output):
         else:
             key_info["is_public"] = False
             key_info["is_private"] = True
+
+        if key.is_protected:
             print("Please enter the passphrase to unlock the given key")
             key_info["passphrase"] = input()
 
