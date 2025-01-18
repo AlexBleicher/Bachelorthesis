@@ -1,10 +1,11 @@
 from Application.RSAChecks.FermatFactoringChecks import *
 from Application.RSAChecks.LowPrivateExponentRSAChecks import *
 from Application.RSAChecks.LowPublicExponentRSACheck import *
+from Application.RSAChecks.ROCAChecks import *
 from Application.Util.CreateWeaknessJSON import *
 
 
-def analyzeRSAWeaknesses(key_info, output, settings):
+def analyzeRSAWeaknesses(key_info, keyfile, output, settings):
     isPrivate = key_info[('is_private')]
     key = key_info['key']
     foundWeaknesses = []
@@ -18,6 +19,9 @@ def analyzeRSAWeaknesses(key_info, output, settings):
                                                   "Using a different algorithm."))
     if settings["LowPublicExponentCheckIncluded"]:
         checkLowPublicExponent(key, foundWeaknesses, settings)
+
+    if settings["ROCACheckIncluded"] and key_info["unparsedData"] is not None:
+        checkKeyForROCA(key_info["unparsedData"], keyfile, foundWeaknesses)
 
     if isPrivate:
         passphrase = key_info["passphrase"]

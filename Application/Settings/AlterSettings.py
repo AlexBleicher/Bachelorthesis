@@ -43,7 +43,8 @@ def calledSettings(arg):
                     print("A given RSA Key should be checked if the public exponent is low. This would enable some attacks like calculating back to the original message from sending multiple ciphers with the same message to different recipients and using the chinese remainder theorem on them.\nAllowed Values: Booleans\n")
                 elif settingToChange == "LowPublicExponentBound":
                     print("The minimum value a RSA public Exponent should have.\nAllowed Values: Numbers greater than 3")
-
+                elif settingToChange == "ROCACheckIncluded":
+                    print("A given RSA Key shoult be checked for the ROCA vulnerability.\nAllowed Values: Booleans\n")
                 try:
                     print("Please enter the value you want to change the setting to.\n")
                     userInput = input()
@@ -62,7 +63,7 @@ def calledSettings(arg):
                         userInput = int(userInput)
                         if userInput<=3:
                             raise Exception
-                    elif settingToChange == "FermatFactoringCheckIncluded" or settingToChange == "LowPrivateExponentCheckIncluded" or settingToChange == "LowPublicExponentCheckIncluded":
+                    elif settingToChange == "FermatFactoringCheckIncluded" or settingToChange == "LowPrivateExponentCheckIncluded" or settingToChange == "LowPublicExponentCheckIncluded" or settingToChange == "ROCACheckIncluded":
                         if userInput.lower() == "false":
                             userInput = False
                         elif userInput.lower() == "true":

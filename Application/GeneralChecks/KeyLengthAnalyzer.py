@@ -83,3 +83,4 @@ def setEffectiveKeyLength(keysize, applyingDict):
             currentEffectiveKeyLength = applyingDict.get(value)
         else:
             return currentEffectiveKeyLength
+    return currentEffectiveKeyLength

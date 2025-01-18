@@ -25,7 +25,7 @@ class MyApp(cmd.Cmd):
         analyzeKeyLengths(key_info["key"], output, self.settings)
         checkKeyVersion(key_info["key"], output, self.settings)
         if "RSA" in key_info["algorithm"]:
-            analyzeRSAWeaknesses(key_info, output, self.settings)
+            analyzeRSAWeaknesses(key_info, keyfile, output, self.settings)
         return output
 
     def do_analyze(self, arg):

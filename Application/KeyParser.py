@@ -15,12 +15,14 @@ def parse_Key(file_path, output):
         "format": None,
         "key": None,
         "passphrase": None,
-        "algorithm": None
+        "algorithm": None,
+        "unparsedData": None
     }
     try:
         # Read the key file
         with open(file_path, "rb") as f:
             key_data = f.read()
+            key_info["unparsedData"] = key_data
 
         # Try to parse it as ASCII-armored
         try:
