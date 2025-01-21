@@ -1,5 +1,5 @@
 from pgpy import PGPKey
-from prompt_toolkit import prompt
+
 
 def parse_Key(file_path, output):
     """
