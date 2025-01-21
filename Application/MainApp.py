@@ -1,12 +1,11 @@
 import cmd
-import json
-import os
-from KeyParser import *
+import warnings
+
+from Application.GeneralChecks.DeprecatedKeyVersionCheck import *
 from Application.GeneralChecks.KeyLengthAnalyzer import *
 from Application.RSAChecks.RSAAnalyzer import *
 from Application.Settings.AlterSettings import *
-from Application.GeneralChecks.DeprecatedKeyVersionCheck import *
-import warnings
+from KeyParser import *
 
 warnings.filterwarnings("ignore")
 
@@ -24,7 +23,7 @@ class MyApp(cmd.Cmd):
             return None
         analyzeKeyLengths(key_info["key"], output, self.settings)
         checkKeyVersion(key_info["key"], output, self.settings)
-        if "RSA" in key_info["algorithm"]:
+        if key_info["algorithm"] in RSAAlgorithmIDs:
             analyzeRSAWeaknesses(key_info, keyfile, output, self.settings)
         return output
 

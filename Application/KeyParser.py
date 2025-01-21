@@ -36,7 +36,7 @@ def parse_Key(file_path, output):
             key_info["key"] = key
             key_info["asciiArmoredData"] = str(key) #In order to allow ROCA checks
 
-        key_info["algorithm"] = key.key_algorithm.name
+        key_info["algorithm"] = key.key_algorithm.value
         # Determine if the key is public or private
         if key.is_public:
             key_info["is_public"] = True
