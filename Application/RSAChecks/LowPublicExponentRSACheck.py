@@ -1,6 +1,5 @@
 from Application.Util.CreateWeaknessJSON import *
 
-
 def checkLowPublicExponent(key, foundWeaknesses, settings):
     e = key._key.keymaterial.e
     bound = settings["LowPublicExponentBound"]
