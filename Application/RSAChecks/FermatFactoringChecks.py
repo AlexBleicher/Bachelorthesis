@@ -2,7 +2,6 @@
 import math
 import gmpy2
 from Application.Util.CreateWeaknessJSON import *
-#TODO: Test with valid Fermat Keys.
 
 def fermatFactoringCheckPrivateKey(key, foundWeaknesses, passphrase, settings):
     with key.unlock(passphrase):

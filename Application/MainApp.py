@@ -17,7 +17,7 @@ class MyApp(cmd.Cmd):
 
     def analyzeKeyFromFile(self, keyfile):
         output = {}
-        key_info = parse_Key(keyfile, output)
+        key_info = parseKey(keyfile, output)
         if key_info is None:
             print("Error parsing key from file: " + keyfile)
             return None
