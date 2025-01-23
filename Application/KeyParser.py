@@ -1,7 +1,7 @@
 from pgpy import PGPKey
 
 
-def parse_Key(file_path, output):
+def parseKey(file_path, output):
     """
     Parses a PGP key file to determine its type and format.
     Args:
