@@ -5,7 +5,7 @@ from Application.GeneralChecks.DeprecatedKeyVersionCheck import *
 from Application.GeneralChecks.KeyLengthAnalyzer import *
 from Application.RSAChecks.RSAAnalyzer import *
 from Application.Settings.AlterSettings import *
-from KeyParser import *
+from Application.KeyParser import *
 
 warnings.filterwarnings("ignore")
 
@@ -13,7 +13,7 @@ warnings.filterwarnings("ignore")
 class MyApp(cmd.Cmd):
     prompt = '>>'
     intro = "Welcome to my Key Analyzer"
-    settings = json.load(open('settings.json'))
+    settings = json.load(open('Application/settings.json'))
 
     def analyzeKeyFromFile(self, keyfile):
         output = {}
@@ -38,10 +38,10 @@ class MyApp(cmd.Cmd):
             keyfile = arg
             output = self.analyzeKeyFromFile(keyfile)
             if output is not None:
-                if os.path.exists("output.json"):
-                    os.remove("output.json")
-                json.dump(output, open('output.json', 'w'), indent=4)
-                print("Analysis complete. The result can be found under " + os.path.abspath("output.json"))
+                if os.path.exists("Application/output.json"):
+                    os.remove("Application/output.json")
+                json.dump(output, open('Application/output.json', 'w'), indent=4)
+                print("Analysis complete. The result can be found under " + os.path.abspath("Application/output.json"))
             else:
                 print("Analysis failed")
         except Exception as e:
@@ -61,10 +61,10 @@ class MyApp(cmd.Cmd):
                 if outputForKey is not None:
                     output.append(outputForKey)
             if len(output)>0:
-                if(os.path.exists("output.json")):
-                    os.remove("output.json")
-                json.dump(output, open('output.json', 'w'), indent=4)
-                print("Analysis complete. The result can be found under " + os.path.abspath("output.json"))
+                if(os.path.exists("Application/output.json")):
+                    os.remove("Application/output.json")
+                json.dump(output, open('Application/output.json', 'w'), indent=4)
+                print("Analysis complete. The result can be found under " + os.path.abspath("Application/output.json"))
             else:
                 print("Analysis failed. No parseable key was found.")
         except Exception as e:
@@ -72,7 +72,7 @@ class MyApp(cmd.Cmd):
     def do_settings(self, arg):
         """Display and alter Settings for Vulnerability Checks"""
         calledSettings(input)
-        self.settings = json.load(open('settings.json'))
+        self.settings = json.load(open('Application/settings.json'))
 
     def do_quit(self, arg):
         """Exit the CLI."""
