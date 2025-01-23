@@ -28,6 +28,7 @@ class MyApp(cmd.Cmd):
         return output
 
     def do_analyze(self, arg):
+        """Analyze a given Keyfile for possible Vulnerabilities"""
         output={}
         try:
             if arg == "":
@@ -47,6 +48,7 @@ class MyApp(cmd.Cmd):
             print("Exception occured: " + str(e))
 
     def do_analyzedir(self, arg):
+        """Analyze every File in a Directory full of Keyfiles for possible Vulnerabilities"""
         output = []
         try:
             if arg == "":
@@ -68,6 +70,7 @@ class MyApp(cmd.Cmd):
         except Exception as e:
             print("Exception occured: " + str(e))
     def do_settings(self, arg):
+        """Display and alter Settings for Vulnerability Checks"""
         calledSettings(input)
         self.settings = json.load(open('settings.json'))
 
