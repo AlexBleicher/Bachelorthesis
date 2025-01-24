@@ -13,7 +13,7 @@ warnings.filterwarnings("ignore")
 class MyApp(cmd.Cmd):
     prompt = '>>'
     intro = "Welcome to my Key Analyzer"
-    settings = json.load(open('Application/settings.json'))
+    settings = json.load(open('settings.json'))
 
     def analyzeKeyFromFile(self, keyfile):
         output = {}
@@ -72,7 +72,7 @@ class MyApp(cmd.Cmd):
     def do_settings(self, arg):
         """Display and alter Settings for Vulnerability Checks"""
         calledSettings(input)
-        self.settings = json.load(open('Application/settings.json'))
+        self.settings = json.load(open('settings.json'))
 
     def do_quit(self, arg):
         """Exit the CLI."""
