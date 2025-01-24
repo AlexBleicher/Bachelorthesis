@@ -13,7 +13,10 @@ warnings.filterwarnings("ignore")
 class MyApp(cmd.Cmd):
     prompt = '>>'
     intro = "Welcome to my Key Analyzer"
-    settings = json.load(open('settings.json'))
+
+    def __init__(self, settings):
+        super().__init__()
+        self.settings = settings
 
     def analyzeKeyFromFile(self, keyfile):
         output = {}
@@ -29,7 +32,7 @@ class MyApp(cmd.Cmd):
 
     def do_analyze(self, arg):
         """Analyze a given Keyfile for possible Vulnerabilities"""
-        output={}
+        output = {}
         try:
             if arg == "":
                 print("Please enter a Keyfile to analyze.")
@@ -60,8 +63,8 @@ class MyApp(cmd.Cmd):
                 outputForKey = self.analyzeKeyFromFile(filepath)
                 if outputForKey is not None:
                     output.append(outputForKey)
-            if len(output)>0:
-                if(os.path.exists("Application/output.json")):
+            if len(output) > 0:
+                if (os.path.exists("Application/output.json")):
                     os.remove("Application/output.json")
                 json.dump(output, open('Application/output.json', 'w'), indent=4)
                 print("Analysis complete. The result can be found under " + os.path.abspath("Application/output.json"))
@@ -69,6 +72,7 @@ class MyApp(cmd.Cmd):
                 print("Analysis failed. No parseable key was found.")
         except Exception as e:
             print("Exception occured: " + str(e))
+
     def do_settings(self, arg):
         """Display and alter Settings for Vulnerability Checks"""
         calledSettings(input)
@@ -81,4 +85,5 @@ class MyApp(cmd.Cmd):
 
 
 if __name__ == '__main__':
-    MyApp().cmdloop()
+    settings = json.load(open("settings.json"))
+    MyApp(settings).cmdloop()
