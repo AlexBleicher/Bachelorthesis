@@ -1,7 +1,8 @@
 #Copyright for code under fermatFactoringCheckPublicKey(). Original source: Badkeys by Hanno Böck. Copyright (c) Hanno Böck
-import math
 import gmpy2
+
 from Application.Util.CreateWeaknessJSON import *
+
 
 def fermatFactoringCheckPrivateKey(key, foundWeaknesses, passphrase, settings):
     with key.unlock(passphrase):
