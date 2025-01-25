@@ -12,7 +12,7 @@ def checkForLowPrivateExponent(key, foundWeaknesses, passphrase, settings):
             bound = pow(gmpy2.mpz(n), 0.292)
             upperEBound = pow(gmpy2.mpz(n), 1.875)
             e = key._key.keymaterial.e
-            boundApplicable = e > upperEBound
+            boundApplicable = e < upperEBound
 
         if boundApplicable and d < bound:
             foundWeaknesses.append(createWeaknessJSON("Low private Exponent",
