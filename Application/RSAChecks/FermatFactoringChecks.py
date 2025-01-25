@@ -12,7 +12,7 @@ def fermatFactoringCheckPrivateKey(key, foundWeaknesses, passphrase, settings):
         else:
             diff = q - p
         effectiveLengthToCheck = settings["FermatFactoringEffectiveLengthToCheck"]
-        if diff < math.pow(2, effectiveLengthToCheck):
+        if diff < 2**effectiveLengthToCheck:
             foundWeaknesses.append(createWeaknessJSON("Fermat Factoring Algorithm",
                                                       "The RSA Modulus can be factored efficiently with Fermat's Factoring Algorithm because p and q are too close together",
                                                       "Use a new RSA key pair that has been generated with a correct implementation of RSA"))
