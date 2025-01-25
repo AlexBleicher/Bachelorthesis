@@ -15,6 +15,6 @@ def checkForLowPrivateExponent(key, foundWeaknesses, passphrase, settings):
             boundApplicable = e > upperEBound
 
         if boundApplicable and d < bound:
-            foundWeaknesses.append("Low private Exponent",
+            foundWeaknesses.append(createWeaknessJSON("Low private Exponent",
                                    "A low private Exponent in the RSA Algorithm can lead to the recovery of the private exponent d using Wieners attack or Coppersmiths technique.",
-                                   "Use a private Exponent that exceeds half the bit length of the common modulus.")
+                                   "Use a private Exponent that exceeds half the bit length of the common modulus."))
