@@ -1,4 +1,3 @@
-import math
 import gmpy2
 from Application.Util.CreateWeaknessJSON import *
 def checkForLowPrivateExponent(key, foundWeaknesses, passphrase, settings):
@@ -8,7 +7,7 @@ def checkForLowPrivateExponent(key, foundWeaknesses, passphrase, settings):
         boundToCheck = settings["LowPrivateExponentBound"]
         boundApplicable = True
         if boundToCheck == "Estimated Bound":
-            bound = math.sqrt(n)
+            bound = gmpy2.isqrt(n)
         elif boundToCheck == "Boneh and Durfee Bound":
             bound = pow(gmpy2.mpz(n), 0.292)
             upperEBound = pow(gmpy2.mpz(n), 1.875)
