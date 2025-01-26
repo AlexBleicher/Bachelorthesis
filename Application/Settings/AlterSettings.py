@@ -15,11 +15,13 @@ def calledSettings(arg):
             userInput = input()
         if userInput == 'exit':
             exit = True
+            break
         elif userInput == 'alter':
             print("Please enter the name of the setting you want to change. \n")
             userInput = input()
             if userInput == "exit":
                 exit = True
+                break
             elif userInput not in settings:
                 print("Unknown setting " + userInput)
             else:
@@ -28,7 +30,7 @@ def calledSettings(arg):
                     print("The RFC version the keys should be checked against.\nAllowed Values: " + str(
                         possibleSettingsValuesRFC) +"\n")
                 elif settingToChange == "UserSpecifiedKeyLength":
-                    print("A minimum Key length the given key should have.\nAllowed Values: Numbers greater than 0\n")
+                    print("A minimum Key length (effective length) the given key should have.\nAllowed Values: Numbers greater than 0\n")
                 elif settingToChange == "FermatFactoringCheckIncluded":
                     print(
                         "A given RSA Key should be checked against possible Fermat Factorization.\nAllowed Values: Booleans\n")
@@ -51,6 +53,7 @@ def calledSettings(arg):
 
                     if userInput == "exit":
                         exit = True
+                        break
                     elif settingToChange == "RFCVersion" and userInput not in possibleSettingsValuesRFC:
                         raise Exception
                     elif settingToChange == "LowPrivateExponentBound" and userInput not in possibleSettingsBoundsLowPrivateExponentRSA:

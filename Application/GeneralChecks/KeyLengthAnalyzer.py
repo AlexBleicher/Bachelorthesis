@@ -65,7 +65,7 @@ def analyzeKeyLengths(key, output, settings):
     userSpecifiedKeyLength = int(settings["UserSpecifiedKeyLength"])
     satisfies = "No User Key Length specified"
     if userSpecifiedKeyLength >= 0:
-        satisfies = str(keysize >= userSpecifiedKeyLength)
+        satisfies = str(effectiveKeyLengthNIST >= userSpecifiedKeyLength)
 
     lengthInfo = {}
     lengthInfo["Key Length"] = keysize
