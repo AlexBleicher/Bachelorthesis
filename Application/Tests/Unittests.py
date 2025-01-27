@@ -4,6 +4,7 @@ from Application.GeneralChecks.KeyLengthAnalyzer import *
 from Application.RSAChecks.FermatFactoringChecks import *
 from Application.RSAChecks.ROCAChecks import *
 from Application.RSAChecks.LowPublicExponentRSACheck import *
+from Application.RSAChecks.LowPrivateExponentRSAChecks import *
 class TestClass(unittest.TestCase):
     def test_keyLengthRSAShort(self):
         key, _ = PGPKey.from_file('./Testkeys/SelfGeneratedKeys/ShortRSAPublicKey1.gpg')
@@ -71,4 +72,32 @@ class TestClass(unittest.TestCase):
         testSettings["LowPublicExponentBound"] = 65537
         actualOutput = []
         checkLowPublicExponent(key, actualOutput, testSettings)
+        self.assertEqual(expectedOutput, actualOutput)
+
+    def test_RSALowPrivateExponentEstimatedBound(self):
+        key, _ = PGPKey.from_file('./Testkeys/SelfGeneratedKeys/RSALowPrivateExponent1.gpg')
+        expectedOutput = []
+        weakness = {}
+        weakness["Name of Weakness"] = "Low private Exponent"
+        weakness["Description"] = "A low private Exponent in the RSA Algorithm can lead to the recovery of the private exponent d using Wieners attack or Coppersmiths technique."
+        weakness["Countermeasure"] = "Use a private Exponent that exceeds half the bit length of the common modulus."
+        expectedOutput.append(weakness)
+        testSettings = {}
+        testSettings["LowPrivateExponentBound"] = "Estimated Bound"
+        actualOutput = []
+        checkForLowPrivateExponent(key, actualOutput, "test", testSettings)
+        self.assertEqual(expectedOutput, actualOutput)
+
+    def test_RSALowPrivateExponentBonehAndDurfeeBound(self):
+        key, _ = PGPKey.from_file('./Testkeys/SelfGeneratedKeys/RSALowPrivateExponent1.asc')
+        expectedOutput = []
+        weakness = {}
+        weakness["Name of Weakness"] = "Low private Exponent"
+        weakness["Description"] = "A low private Exponent in the RSA Algorithm can lead to the recovery of the private exponent d using Wieners attack or Coppersmiths technique."
+        weakness["Countermeasure"] = "Use a private Exponent that exceeds half the bit length of the common modulus."
+        expectedOutput.append(weakness)
+        testSettings = {}
+        testSettings["LowPrivateExponentBound"] = "Boneh and Durfee Bound"
+        actualOutput = []
+        checkForLowPrivateExponent(key, actualOutput, "test", testSettings)
         self.assertEqual(expectedOutput, actualOutput)
