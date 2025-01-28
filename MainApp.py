@@ -1,18 +1,21 @@
 import cmd
 import warnings
 
+from Application.DSAChecks.DSAAnalyzer import *
+from Application.ECCChecks.ECCAnalyzer import *
+from Application.ElGamalChecks.ElGamalAnalyzer import *
 from Application.GeneralChecks.DeprecatedKeyVersionCheck import *
 from Application.GeneralChecks.KeyLengthAnalyzer import *
+from Application.KeyParser import *
 from Application.RSAChecks.RSAAnalyzer import *
 from Application.Settings.AlterSettings import *
-from Application.KeyParser import *
 
 warnings.filterwarnings("ignore")
 
 
 class MyApp(cmd.Cmd):
     prompt = '>>'
-    intro = "Welcome to my Key Analyzer"
+    intro = "Welcome to the OpenPGP Key Analyzer. Type help or ? to list commands."
 
     def __init__(self, settings):
         super().__init__()
@@ -28,6 +31,17 @@ class MyApp(cmd.Cmd):
         checkKeyVersion(key_info["key"], output, self.settings)
         if key_info["algorithm"] in RSAAlgorithmIDs:
             analyzeRSAWeaknesses(key_info, keyfile, output, self.settings)
+        elif key_info["algorithm"] in ElGamalAlgorithmIDs:
+            analyzeElGamalWeaknesses(key_info, output, self.settings)
+        elif key_info["algorithm"] in EllipticCurveAlgorithmIDs:
+            analyzeECCKWeaknesses(key_info, output, self.settings)
+        elif key_info["algorithm"] in DSAAlgorithmIDs:
+            analyzeDSAWeaknesses(key_info, output, self.settings)
+        else:
+            logger.warning("Unknown algorithm: " + key_info["algorithm"])
+            output["Found Weaknesses"] = [].append(createWeaknessJSON("Usage of unknown or reserved algorithm",
+                                                                      "The Usage of unknown or reserved algorithm IDs is discouraged for keys in practical settings",
+                                                                      "Usage of an known algorithm (ECC is recommended)."))
         return output
 
     def do_analyze(self, arg):
@@ -66,7 +80,7 @@ class MyApp(cmd.Cmd):
                 outputForKey = self.analyzeKeyFromFile(filepath)
                 if outputForKey is not None:
                     output.append(outputForKey)
-            if len(output)>0:
+            if len(output) > 0:
                 outputDir = input("Please enter the directory to save the output files: ").strip()
                 path = os.path.join(outputDir, "output.json")
                 if os.path.exists(path):
