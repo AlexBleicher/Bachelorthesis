@@ -41,10 +41,13 @@ class MyApp(cmd.Cmd):
             keyfile = arg
             output = self.analyzeKeyFromFile(keyfile)
             if output is not None:
-                if os.path.exists("Application/output.json"):
+                outputDir = input("Please enter the directory to save the output files: ").strip()
+                path = os.path.join(outputDir, "output.json")
+                if os.path.exists(path):
+                    print("Warning: Output file already exists, will overwrite it")
                     os.remove("Application/output.json")
-                json.dump(output, open('Application/output.json', 'w'), indent=4)
-                print("Analysis complete. The result can be found under " + os.path.abspath("Application/output.json"))
+                json.dump(output, open(path, 'w'), indent=4)
+                print("Analysis complete. The result can be found under " + path)
             else:
                 print("Analysis failed")
         except Exception as e:
@@ -63,11 +66,14 @@ class MyApp(cmd.Cmd):
                 outputForKey = self.analyzeKeyFromFile(filepath)
                 if outputForKey is not None:
                     output.append(outputForKey)
-            if len(output) > 0:
-                if (os.path.exists("Application/output.json")):
+            if len(output)>0:
+                outputDir = input("Please enter the directory to save the output files: ").strip()
+                path = os.path.join(outputDir, "output.json")
+                if os.path.exists(path):
+                    print("Warning: Output file already exists, will overwrite it")
                     os.remove("Application/output.json")
-                json.dump(output, open('Application/output.json', 'w'), indent=4)
-                print("Analysis complete. The result can be found under " + os.path.abspath("Application/output.json"))
+                json.dump(output, open(path, 'w'), indent=4)
+                print("Analysis complete. The result can be found under " + path)
             else:
                 print("Analysis failed. No parseable key was found.")
         except Exception as e:

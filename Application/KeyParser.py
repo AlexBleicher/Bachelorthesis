@@ -1,6 +1,7 @@
 from pgpy import PGPKey
+import logging
 
-
+logger = logging.getLogger(__name__)
 def parseKey(file_path, output):
     """
     Parses a PGP key file to determine its type and format.
@@ -59,6 +60,8 @@ def parseKey(file_path, output):
         genInfo["Protocol"] = key.key_algorithm.name
         genInfo["Secret Key"] = key_info["is_private"]
         genInfo["Expiration Date"] = str(expirationDate)
+        if expirationDate == "Never":
+            logger.warning("Expiration date should be set!")
         output["General Key Information"] = genInfo
         return key_info
 
