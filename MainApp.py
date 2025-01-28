@@ -45,7 +45,7 @@ class MyApp(cmd.Cmd):
                 path = os.path.join(outputDir, "output.json")
                 if os.path.exists(path):
                     print("Warning: Output file already exists, will overwrite it")
-                    os.remove("Application/output.json")
+                    os.remove(path)
                 json.dump(output, open(path, 'w'), indent=4)
                 print("Analysis complete. The result can be found under " + path)
             else:
@@ -71,7 +71,7 @@ class MyApp(cmd.Cmd):
                 path = os.path.join(outputDir, "output.json")
                 if os.path.exists(path):
                     print("Warning: Output file already exists, will overwrite it")
-                    os.remove("Application/output.json")
+                    os.remove(path)
                 json.dump(output, open(path, 'w'), indent=4)
                 print("Analysis complete. The result can be found under " + path)
             else:

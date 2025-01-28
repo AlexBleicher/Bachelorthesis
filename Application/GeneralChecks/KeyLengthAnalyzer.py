@@ -48,6 +48,7 @@ def analyzeKeyLengths(key, output, settings):
         effectiveKeyLengthBSI = setEffectiveKeyLength(keysize, effectiveKeyLengthsBSIClassical)
         effectiveKeyLengthNIST = setEffectiveKeyLength(keysize, effectiveKeyLengthsNISTClassical)
     elif algorithm in EllipticCurveAlgorithmIDs:
+        keysize = keysize.key_size
         effectiveKeyLengthBSI = setEffectiveKeyLength(keysize, effectiveKeyLengthsBSIECC)
         effectiveKeyLengthNIST = setEffectiveKeyLength(keysize, effectiveKeyLengthsNISTECC)
     else:

@@ -11,7 +11,7 @@ from Application.RSAChecks.ROCAChecks import *
 
 class TestClass(unittest.TestCase):
     def test_keyLengthRSAShort(self):
-        key, _ = PGPKey.from_file('./Testkeys/SelfGeneratedKeys/ShortRSAPublicKey1.gpg')
+        key, _ = PGPKey.from_file('Testkeys/SelfGeneratedKeys/VulnerableKeys/ShortRSAPublicKey1.gpg')
         expectedOutput = {}
         temp = {}
         temp["Key Length"] = 1024
@@ -26,7 +26,7 @@ class TestClass(unittest.TestCase):
         self.assertEqual(expectedOutput, actualOutput)
 
     def test_FermatWeakness(self):
-        key, _ = PGPKey.from_file('./Testkeys/SelfGeneratedKeys/FermatTest1.gpg')
+        key, _ = PGPKey.from_file('Testkeys/SelfGeneratedKeys/VulnerableKeys/FermatTest1.gpg')
         expectedOutput = []
         weakness = {}
         weakness["Name of Weakness"] = "Fermat Factoring Algorithm"
@@ -41,7 +41,7 @@ class TestClass(unittest.TestCase):
         fermatFactoringCheckPrivateKey(key, actualOutput, "test", testSettings)
         self.assertEqual(expectedOutput, actualOutput)
 
-        key, _ = PGPKey.from_file('./Testkeys/SelfGeneratedKeys/FermatTest1.asc')
+        key, _ = PGPKey.from_file('Testkeys/SelfGeneratedKeys/VulnerableKeys/FermatTest1.asc')
         expectedOutput = []
         weakness = {}
         weakness["Name of Weakness"] = "Fermat Factoring Algorithm"
@@ -70,7 +70,7 @@ class TestClass(unittest.TestCase):
         self.assertEqual(expectedOutput, actualOutput)
 
     def test_RSALowPublicExponent(self):
-        key, _ = PGPKey.from_file('./Testkeys/SelfGeneratedKeys/LowPublicExponentTest1.asc')
+        key, _ = PGPKey.from_file('Testkeys/SelfGeneratedKeys/VulnerableKeys/LowPublicExponentTest1.asc')
         expectedOutput = []
         weakness = {}
         weakness["Name of Weakness"] = "Low public Exponent"
@@ -86,7 +86,7 @@ class TestClass(unittest.TestCase):
         self.assertEqual(expectedOutput, actualOutput)
 
     def test_RSALowPrivateExponentEstimatedBound(self):
-        key, _ = PGPKey.from_file('./Testkeys/SelfGeneratedKeys/RSALowPrivateExponent1.gpg')
+        key, _ = PGPKey.from_file('Testkeys/SelfGeneratedKeys/VulnerableKeys/RSALowPrivateExponent1.gpg')
         expectedOutput = []
         weakness = {}
         weakness["Name of Weakness"] = "Low private Exponent"
@@ -101,7 +101,7 @@ class TestClass(unittest.TestCase):
         self.assertEqual(expectedOutput, actualOutput)
 
     def test_RSALowPrivateExponentBonehAndDurfeeBound(self):
-        key, _ = PGPKey.from_file('./Testkeys/SelfGeneratedKeys/RSALowPrivateExponent1.asc')
+        key, _ = PGPKey.from_file('Testkeys/SelfGeneratedKeys/VulnerableKeys/RSALowPrivateExponent1.asc')
         expectedOutput = []
         weakness = {}
         weakness["Name of Weakness"] = "Low private Exponent"
