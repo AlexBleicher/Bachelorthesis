@@ -6,7 +6,7 @@ from Application.Util.CreateWeaknessJSON import *
 
 
 def analyzeRSAWeaknesses(key_info, keyfile, output, settings):
-    isPrivate = key_info[('is_private')]
+    isPrivate = key_info['is_private']
     key = key_info['key']
     foundWeaknesses = []
     if settings["RFCVersion"] == "RFC4880":
@@ -25,6 +25,7 @@ def analyzeRSAWeaknesses(key_info, keyfile, output, settings):
 
     if isPrivate:
         passphrase = key_info["passphrase"]
+
         if settings["FermatFactoringCheckIncluded"]:
             fermatFactoringCheckPrivateKey(key, foundWeaknesses, passphrase, settings)
         if settings["LowPrivateExponentCheckIncluded"]:

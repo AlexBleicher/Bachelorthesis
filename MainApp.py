@@ -21,14 +21,10 @@ class MyApp(cmd.Cmd):
         super().__init__()
         self.settings = settings
 
-    def analyzeKeyFromFile(self, keyfile):
-        output = {}
-        key_info = parseKey(keyfile, output)
-        if key_info is None:
-            print("Error parsing key from file: " + keyfile)
-            return None
-        analyzeKeyLengths(key_info["key"], output, self.settings)
-        checkKeyVersion(key_info["key"], output, self.settings)
+    def analyzeKey(self, output, key_info, keyfile):
+        key = key_info["key"]
+        analyzeKeyLengths(key, output, self.settings)
+        checkKeyVersion(key, output, self.settings)
         if key_info["algorithm"] in RSAAlgorithmIDs:
             analyzeRSAWeaknesses(key_info, keyfile, output, self.settings)
         elif key_info["algorithm"] in ElGamalAlgorithmIDs:
@@ -42,6 +38,23 @@ class MyApp(cmd.Cmd):
             output["Found Weaknesses"] = [].append(createWeaknessJSON("Usage of unknown or reserved algorithm",
                                                                       "The Usage of unknown or reserved algorithm IDs is discouraged for keys in practical settings",
                                                                       "Usage of an known algorithm (ECC is recommended)."))
+        if key.subkeys is not None:
+            output["Subkey Information"] = []
+            subkeys = key.subkeys.items()
+            for subkey in subkeys:
+                subkey_info = parseKeyInfo(subkey[1], key_info["passphrase"])
+                subkey_output = {}
+                subkey_output["Algorithm"] = subkey_info["algorithmName"]
+                self.analyzeKey(subkey_output, subkey_info, keyfile)
+                output["Subkey Information"].append(subkey_output)
+
+    def analyzeKeyFromFile(self, keyfile):
+        output = {}
+        general_info = parseKey(keyfile, output)
+        if general_info is None:
+            print("Error parsing key from file: " + keyfile)
+            return None
+        self.analyzeKey(output, general_info["keyInfo"], keyfile)
         return output
 
     def do_analyze(self, arg):
