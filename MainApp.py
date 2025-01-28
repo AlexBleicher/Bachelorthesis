@@ -35,7 +35,7 @@ class MyApp(cmd.Cmd):
             analyzeDSAWeaknesses(key_info, output, self.settings)
         else:
             logger.warning("Unknown algorithm: " + key_info["algorithm"])
-            output["Found Weaknesses"] = [].append(createWeaknessJSON("Usage of unknown or reserved algorithm",
+            output["Algorithm Specific Weaknesses"] = [].append(createWeaknessJSON("Usage of unknown or reserved algorithm",
                                                                       "The Usage of unknown or reserved algorithm IDs is discouraged for keys in practical settings",
                                                                       "Usage of an known algorithm (ECC is recommended)."))
         if key.subkeys is not None:

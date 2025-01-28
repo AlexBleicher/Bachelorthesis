@@ -34,4 +34,4 @@ def analyzeRSAWeaknesses(key_info, keyfile, output, settings):
         if settings["FermatFactoringCheckIncluded"]:
             fermatFactoringCheckPublicKey(key, foundWeaknesses)
 
-    output["Found Weaknesses"] = foundWeaknesses
+    output["Algorithm Specific Weaknesses"] = foundWeaknesses
