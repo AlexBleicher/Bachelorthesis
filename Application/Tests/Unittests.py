@@ -1,11 +1,12 @@
 import unittest
+
 from pgpy import PGPKey
+
 from Application.GeneralChecks.KeyLengthAnalyzer import *
 from Application.RSAChecks.FermatFactoringChecks import *
-from Application.RSAChecks.ROCAChecks import *
-from Application.RSAChecks.LowPublicExponentRSACheck import *
 from Application.RSAChecks.LowPrivateExponentRSAChecks import *
-import MainApp
+from Application.RSAChecks.LowPublicExponentRSACheck import *
+from Application.RSAChecks.ROCAChecks import *
 
 
 class TestClass(unittest.TestCase):
