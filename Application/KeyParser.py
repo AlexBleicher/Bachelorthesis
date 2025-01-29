@@ -4,7 +4,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def parseKey(file_path, output):
+def parseKeyFromFile(file_path, output):
     """
     Parses a PGP key file to determine its type and format.
     Args:
@@ -44,7 +44,7 @@ def parseKey(file_path, output):
         else:
             expirationDate = key.expires_at
 
-        general_Info["keyInfo"] = parseKeyInfo(key, general_Info["passphrase"])
+        general_Info["keyInfo"] = parseKeyInfoFromKey(key, general_Info["passphrase"])
         output["Keyfile"] = file_path
         genInfo = {}
         genInfo["Protocol"] = key.key_algorithm.name
@@ -58,7 +58,7 @@ def parseKey(file_path, output):
         return None
 
 
-def parseKeyInfo(key, passphrase):
+def parseKeyInfoFromKey(key, passphrase):
     key_info = {
         "is_public": None,
         "is_private": None,

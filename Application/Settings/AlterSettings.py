@@ -2,9 +2,9 @@ import json
 from Application.Util.GeneralInformation import *
 
 
-def calledSettings(arg):
+def calledSettings(arg, settingsPath):
     exit = False
-    settings = json.load(open('settings.json', 'r'))
+    settings = json.load(open(settingsPath, 'r'))
     userInput = arg
     while not exit:
         print("Current Settings: " + str(settings))
@@ -74,7 +74,7 @@ def calledSettings(arg):
                         else:
                             raise Exception
                     settings[settingToChange] = userInput
-                    json.dump(settings, open("settings.json", "w"))
+                    json.dump(settings, open(settingsPath, "w"))
                     print("Settings changed")
                 except Exception:
                     print("Entered Value not applicable to given setting: " + str(userInput))

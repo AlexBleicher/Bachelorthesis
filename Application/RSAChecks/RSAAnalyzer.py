@@ -4,7 +4,6 @@ from Application.RSAChecks.LowPublicExponentRSACheck import *
 from Application.RSAChecks.ROCAChecks import *
 from Application.Util.CreateWeaknessJSON import *
 
-
 def analyzeRSAWeaknesses(key_info, keyfile, output, settings):
     isPrivate = key_info['is_private']
     key = key_info['key']

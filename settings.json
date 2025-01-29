@@ -1,1 +1,0 @@
-{"RFCVersion": "RFC4880", "UserSpecifiedKeyLength": 120, "FermatFactoringCheckIncluded": true, "FermatFactoringEffectiveLengthToCheck": 120, "LowPrivateExponentCheckIncluded": true, "LowPrivateExponentBound": "Estimated Bound", "LowPublicExponentCheckIncluded": true, "LowPublicExponentBound": 65537, "ROCACheckIncluded": true}

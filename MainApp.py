@@ -17,9 +17,10 @@ class MyApp(cmd.Cmd):
     prompt = '>>'
     intro = "Welcome to the OpenPGP Key Analyzer. Type help or ? to list commands."
 
-    def __init__(self, settings):
+    def __init__(self, settingsPath):
         super().__init__()
-        self.settings = settings
+        self.settingsPath = settingsPath
+        self.settings = json.load(open(settingsPath))
 
     def analyzeKey(self, output, key_info, keyfile):
         key = key_info["key"]
@@ -42,7 +43,7 @@ class MyApp(cmd.Cmd):
             output["Subkey Information"] = []
             subkeys = key.subkeys.items()
             for subkey in subkeys:
-                subkey_info = parseKeyInfo(subkey[1], key_info["passphrase"])
+                subkey_info = parseKeyInfoFromKey(subkey[1], key_info["passphrase"])
                 subkey_output = {}
                 subkey_output["Algorithm"] = subkey_info["algorithmName"]
                 self.analyzeKey(subkey_output, subkey_info, keyfile)
@@ -50,7 +51,7 @@ class MyApp(cmd.Cmd):
 
     def analyzeKeyFromFile(self, keyfile):
         output = {}
-        general_info = parseKey(keyfile, output)
+        general_info = parseKeyFromFile(keyfile, output)
         if general_info is None:
             print("Error parsing key from file: " + keyfile)
             return None
@@ -108,8 +109,8 @@ class MyApp(cmd.Cmd):
 
     def do_settings(self, arg):
         """Display and alter Settings for Vulnerability Checks"""
-        calledSettings(input)
-        self.settings = json.load(open('settings.json'))
+        calledSettings(input, self.settingsPath)
+        self.settings = json.load(open('Application/Settings/settings.json'))
 
     def do_quit(self, arg):
         """Exit the CLI."""
@@ -118,5 +119,4 @@ class MyApp(cmd.Cmd):
 
 
 if __name__ == '__main__':
-    settings = json.load(open("settings.json"))
-    MyApp(settings).cmdloop()
+    MyApp("Application/Settings/settings.json").cmdloop()
