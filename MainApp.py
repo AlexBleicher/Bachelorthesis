@@ -36,9 +36,10 @@ class MyApp(cmd.Cmd):
             analyzeDSAWeaknesses(key_info, output, self.settings)
         else:
             logger.warning("Unknown algorithm: " + key_info["algorithm"])
-            output["Algorithm Specific Weaknesses"] = [].append(createWeaknessJSON("Usage of unknown or reserved algorithm",
-                                                                      "The Usage of unknown or reserved algorithm IDs is discouraged for keys in practical settings",
-                                                                      "Usage of an known algorithm (ECC is recommended)."))
+            output["Algorithm Specific Weaknesses"] = [].append(
+                createWeaknessJSON("Usage of unknown or reserved algorithm",
+                                   "The Usage of unknown or reserved algorithm IDs is discouraged for keys in practical settings",
+                                   "Usage of an known algorithm (ECC is recommended)."))
         if key.subkeys is not None:
             output["Subkey Information"] = []
             subkeys = key.subkeys.items()
@@ -69,12 +70,20 @@ class MyApp(cmd.Cmd):
             keyfile = arg
             output = self.analyzeKeyFromFile(keyfile)
             if output is not None:
-                outputDir = input("Please enter the directory to save the output files: ").strip()
-                path = os.path.join(outputDir, "output.json")
-                if os.path.exists(path):
-                    print("Warning: Output file already exists, will overwrite it")
-                    os.remove(path)
-                json.dump(output, open(path, 'w'), indent=4)
+                writeOutput = False
+                while not writeOutput:
+                    outputDir = input("Please enter the directory to save the output files: ").strip()
+                    path = os.path.join(outputDir, "output.json")
+                    if os.path.exists(path):
+                        print("Warning: Output file already exists, will overwrite it. Continue anyway (yes/no)? ")
+                        userInput = input().strip()
+                        if userInput == "yes":
+                            writeOutput = True
+                            os.remove(path)
+                    else:
+                        writeOutput = True
+                    if writeOutput:
+                        json.dump(output, open(path, 'w'), indent=4)
                 print("Analysis complete. The result can be found under " + path)
             else:
                 print("Analysis failed")
@@ -95,12 +104,20 @@ class MyApp(cmd.Cmd):
                 if outputForKey is not None:
                     output.append(outputForKey)
             if len(output) > 0:
-                outputDir = input("Please enter the directory to save the output files: ").strip()
-                path = os.path.join(outputDir, "output.json")
-                if os.path.exists(path):
-                    print("Warning: Output file already exists, will overwrite it")
-                    os.remove(path)
-                json.dump(output, open(path, 'w'), indent=4)
+                writeOutput = False
+                while not writeOutput:
+                    outputDir = input("Please enter the directory to save the output files: ").strip()
+                    path = os.path.join(outputDir, "output.json")
+                    if os.path.exists(path):
+                        print("Warning: Output file already exists, will overwrite it. Continue anyway (yes/no)? ")
+                        userInput = input().strip()
+                        if userInput == "yes":
+                            writeOutput = True
+                            os.remove(path)
+                    else:
+                        writeOutput = True
+                    if writeOutput:
+                        json.dump(output, open(path, 'w'), indent=4)
                 print("Analysis complete. The result can be found under " + path)
             else:
                 print("Analysis failed. No parseable key was found.")
