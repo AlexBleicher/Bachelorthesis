@@ -1,0 +1,19 @@
+ROCA Detection:
+crocs nutzen
+
+Anwendung Testen:
+Fehlerhafte Keys generieren
+
+Formalien in der Arbeit:
+
+Further Features:
+Automatisch Mehrere Files checken
+
+Literaturverzeichnis: Bei online Quellen vlt eine Organisation suchen, die dafür verantwortlich ist
+
+Im Testing Part oder am Ende auf die Requirements eingehen, warum die erfüllt worden sind.
+
+Bei Abgabe der Arbeit Bewertungsformular der Arbeit gleich in Mail mitschicken
+
+Nächster Termin: 27.01.2025 16:00 Keßlerstraße
+

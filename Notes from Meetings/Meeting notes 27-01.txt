@@ -1,0 +1,6 @@
+Requirements:
+Erst Requirements die für Funktion gebraucht werden, dann Satz der erklärt warum zusätzlich, dann zusätzliche Requirements
+
+Gerne noch Abbildungen hinzufügen, wo es passt.
+
+Coppersmith: Direkt in den Text reinschreiben, dass Verfahren komplizierter ist.
