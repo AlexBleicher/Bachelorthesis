@@ -1,5 +1,6 @@
 import cmd
 import warnings
+from time import sleep
 
 from Application.DSAChecks.DSAAnalyzer import *
 from Application.ECCChecks.ECCAnalyzer import *
@@ -70,6 +71,7 @@ class MyApp(cmd.Cmd):
             keyfile = arg
             output = self.analyzeKeyFromFile(keyfile)
             if output is not None:
+                sleep(1) #To finish logging
                 writeOutput = False
                 while not writeOutput:
                     outputDir = input("Please enter the directory to save the output files: ").strip()
@@ -100,10 +102,12 @@ class MyApp(cmd.Cmd):
             print("Analyzing all Keyfiles in the given directory. This could take some time please stand by.")
             for keyfile in os.listdir(arg):
                 filepath = os.path.join(arg, keyfile)
+                logger.info("Analysis for key: " + filepath)
                 outputForKey = self.analyzeKeyFromFile(filepath)
                 if outputForKey is not None:
                     output.append(outputForKey)
             if len(output) > 0:
+                sleep(1) #To finish logging
                 writeOutput = False
                 while not writeOutput:
                     outputDir = input("Please enter the directory to save the output files: ").strip()

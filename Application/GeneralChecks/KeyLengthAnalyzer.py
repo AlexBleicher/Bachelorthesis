@@ -1,5 +1,5 @@
 from Application.Util.GeneralInformation import *
-
+import logging
 keyLifetimesNIST = {
     0: "Insecure",
     112: "Secure up to 2030",
@@ -37,6 +37,7 @@ effectiveKeyLengthsNISTECC = {
     512: 256
 }
 
+logger = logging.getLogger(__name__)
 
 def analyzeKeyLengths(key, output, settings):
     keysize = key.key_size
@@ -67,6 +68,13 @@ def analyzeKeyLengths(key, output, settings):
     satisfies = "No User Key Length specified"
     if userSpecifiedKeyLength >= 0:
         satisfies = str(effectiveKeyLengthNIST >= userSpecifiedKeyLength)
+
+    if bsiSecurityLevel == "Insecure":
+        logger.warning("Key Length considered insecure by BSI")
+    if nistSecurityLevel == "Insecure":
+        logger.warning("Key Length considered insecure by NIST")
+    if satisfies == "False":
+        logger.warning("Key Length does not meet effective length specified by user")
 
     lengthInfo = {}
     lengthInfo["Key Length"] = keysize

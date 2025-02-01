@@ -1,8 +1,10 @@
-#Copyright for code under fermatFactoringCheckPublicKey(). Original source: Badkeys by Hanno Böck. Copyright (c) Hanno Böck
+# Copyright for code under fermatFactoringCheckPublicKey(). Original source: Badkeys by Hanno Böck. Copyright (c) Hanno Böck
 import gmpy2
 
 from Application.Util.CreateWeaknessJSON import *
+import logging
 
+logger = logging.getLogger(__name__)
 
 def fermatFactoringCheckPrivateKey(key, foundWeaknesses, passphrase, settings):
     with key.unlock(passphrase):
@@ -13,10 +15,11 @@ def fermatFactoringCheckPrivateKey(key, foundWeaknesses, passphrase, settings):
         else:
             diff = q - p
         effectiveLengthToCheck = settings["FermatFactoringEffectiveLengthToCheck"]
-        if diff < 2**effectiveLengthToCheck:
+        if diff < 2 ** effectiveLengthToCheck:
             foundWeaknesses.append(createWeaknessJSON("Fermat Factoring Algorithm",
                                                       "The RSA Modulus can be factored efficiently with Fermat's Factoring Algorithm because p and q are too close together",
                                                       "Use a new RSA key pair that has been generated with a correct implementation of RSA"))
+            logging.warning("RSA key vulnerable to Fermat's factoring algorithm")
 
 
 def fermatFactoringCheckPublicKey(key, foundWeaknesses):
@@ -33,7 +36,8 @@ def fermatFactoringCheckPublicKey(key, foundWeaknesses):
     b = gmpy2.isqrt(bsq)
     p = a + b
     q = a - b
-    if(p*q==n):
+    if (p * q == n):
         foundWeaknesses.append(createWeaknessJSON("Fermat Factoring Algorithm",
                                                   "The RSA Modulus can be factored efficiently with Fermat's Factoring Algorithm because p and q are too close together",
                                                   "Use a new RSA key pair that has been generated with a correct implementation of RSA"))
+        logging.warning("RSA key vulnerable to Fermat's factoring algorithm")
