@@ -82,6 +82,8 @@ class MyApp(cmd.Cmd):
                         if userInput == "yes":
                             writeOutput = True
                             os.remove(path)
+                    elif not os.path.exists(outputDir):
+                        print("No such path exists. Please input a correct path.")
                     else:
                         writeOutput = True
                     if writeOutput:
@@ -118,6 +120,8 @@ class MyApp(cmd.Cmd):
                         if userInput == "yes":
                             writeOutput = True
                             os.remove(path)
+                    elif not os.path.exists(outputDir):
+                        print("No such path exists. Please input a correct path.")
                     else:
                         writeOutput = True
                     if writeOutput:
